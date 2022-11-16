@@ -1,0 +1,67 @@
+version: '3'
+
+volumes:
+    database_data:
+        driver: local
+
+services:
+    php:
+        build: ./docker/php/
+        image: lamp/apache-php
+        container_name: opencart-lamp-php
+        volumes:
+            - ./docker/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+            - ./www:/var/www
+        env_file:
+            - ".env-example"
+        labels:
+            - "traefik.port=80"
+            - "traefik.backend=apache-cluster"
+            - "traefik.frontend.rule=Host:${PROJECT_HOST}"
+
+    mysql:
+        image: mysql:${MYSQL_VERSION}
+        hostname: "mysql"
+        container_name: opencart-lamp-mysql
+        volumes:
+            - database_data:/var/lib/mysql
+        env_file:
+            - ".env-example"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        labels:
+          - "traefik.enable=false"
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:${PMA_VERSION}
+        container_name: opencart-lamp-pma
+        restart: always
+        links:
+          - mysql
+        env_file:
+          - ".env-example"
+        environment:
+            MYSQL_USERNAME: ${MYSQL_USERNAME}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            PMA_ARBITRARY: 1
+        labels:
+          - "traefik.port=80"
+          - "traefik.frontend.rule=Host:pma.${PROJECT_HOST}"
+
+    traefik:
+        image: traefik:${TRAEFIK_VERSION}
+        container_name: opencart-lamp-traefik
+        command: --web --docker --docker.domain=docker.localhost --logLevel=DEBUG
+        env_file:
+            - ".env-example"
+        ports:
+            - "80:80"
+            - "8080:8080"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /dev/null:/traefik.toml
+        labels:
+            - "traefik.frontend.rule=Host:traefik.${PROJECT_HOST}"
+            - "traefik.port=8080"
