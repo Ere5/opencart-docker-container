@@ -4,7 +4,7 @@ Docker container for [Opencart v4](https://github.com/opencart/opencart) develop
 
 ## Installation
 * Clone Opencart docker container image
-* Copy Opencart V4 files to www directory
+* Copy Opencart V4 files to ```/www``` directory
 * Run command ```make build```
 * Rename ```.env-example``` file to ```.env```
 
