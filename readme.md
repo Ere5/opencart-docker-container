@@ -41,6 +41,13 @@ Docker container for [Opencart v4](https://github.com/opencart/opencart) develop
 
 ## Available routes
 
-* opencart.localhost - Opencart local uri.
-* pma.opencart.localhost - PhpMyAdmin uri.
-* traefik.opencart.localhost - networking stack dashboard uri.
+* **opencart.localhost** - Opencart local uri.
+* **pma.opencart.localhost** - PhpMyAdmin uri.
+* **traefik.opencart.localhost** - networking stack dashboard uri.
+
+## PMA
+In order to connect database use credentials.
+
+* Host - **mysql**
+* Username - **root**
+* Password - **opencart**
