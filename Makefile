@@ -1,5 +1,6 @@
 .POSIX:
 DESTDIR=temp
+VERSION=4.0.2.1
 
 .PHONY: default
 default: help
@@ -30,10 +31,10 @@ stop: ## Stop docker containers
 ssh: ## Connect to docker containers
 	@docker-compose exec php bash
 
-.PHONY: setup
-setup: ## Download opencart
+.PHONY: install
+install: ## Download opencart
 	@echo "? Getting Pages repository"
-	git clone https://github.com/opencart/opencart.git $(DESTDIR)
+	git clone https://github.com/opencart/opencart.git --branch $(VERSION)  $(DESTDIR)
 	cd $(DESTDIR)/../www && rm index.php
 	cd $(DESTDIR) && mv upload/* ../www/
 	rm -rf $(DESTDIR)

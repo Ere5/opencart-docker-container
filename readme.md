@@ -6,6 +6,7 @@ Docker container for [Opencart v4](https://github.com/opencart/opencart) develop
 * Clone Opencart docker container image
 * Copy Opencart V4 files to ```/www``` directory
 * Run command ```make build```
+* Run command ```make install``` to download opencart
 * Rename ```.env-example``` file to ```.env```
 
 ## Available make commands
@@ -16,7 +17,7 @@ Docker container for [Opencart v4](https://github.com/opencart/opencart) develop
 * restart - Restarts docker containers
 * stop - Stop all docker containers
 * ssh - Connect to docker containers (bash)
-* setup - Download opencart into www directory.
+* install - Download OpenCart v4.0.2.1 into www directory.
 
 ## Environment setup (**.env**)
 
@@ -40,7 +41,7 @@ Docker container for [Opencart v4](https://github.com/opencart/opencart) develop
 * zip 
 * gd
 
-## Available routes
+## Available routes (default configuration)
 
 * **opencart.localhost** - Opencart local uri.
 * **pma.opencart.localhost** - PhpMyAdmin uri.
