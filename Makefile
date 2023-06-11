@@ -1,3 +1,6 @@
+.POSIX:
+DESTDIR=temp
+
 .PHONY: default
 default: help
 
@@ -26,3 +29,11 @@ stop: ## Stop docker containers
 .PHONY: ssh
 ssh: ## Connect to docker containers
 	@docker-compose exec php bash
+
+.PHONY: setup
+setup: ## Download opencart
+	@echo "? Getting Pages repository"
+	git clone https://github.com/opencart/opencart.git $(DESTDIR)
+	cd $(DESTDIR)/../www && rm index.php
+	cd $(DESTDIR) && mv upload/* ../www/
+	rm -rf $(DESTDIR)

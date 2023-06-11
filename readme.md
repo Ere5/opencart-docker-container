@@ -16,8 +16,9 @@ Docker container for [Opencart v4](https://github.com/opencart/opencart) develop
 * restart - Restarts docker containers
 * stop - Stop all docker containers
 * ssh - Connect to docker containers (bash)
+* setup - Download opencart into www directory.
 
-## Environment setup
+## Environment setup (**.env**)
 
 * PROJECT_HOST - project host (**opencart.localhost** default)
 * MYSQL_VERSION - MySql version (**8.0** default)
